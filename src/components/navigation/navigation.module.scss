@@ -1,0 +1,26 @@
+.navigation {
+  width: 100;
+  display: flex;
+  justify-content: flex-start;
+  padding: 1rem 2rem;
+  /* border-bottom: 3px solid #734af0; */
+  box-shadow: 0 6px 10px -5px rgb(0 0 0 / 10%);
+}
+
+.navigationItem {
+  margin: 0 1rem;
+  color: #484848;
+
+  &:hover {
+    color: #000;
+  }
+
+  &.active {
+    font-weight: 600;
+    color: #000;
+  }
+}
+
+.external {
+  align-self: flex-end;
+}

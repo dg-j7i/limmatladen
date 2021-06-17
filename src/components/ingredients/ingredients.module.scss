@@ -1,0 +1,69 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonWrapper {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  padding: 0.5rem 1.5rem;
+  text-align: left;
+  color: #eaeaea;
+  text-decoration: none;
+  border: 2px solid #1d1d1d;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: #1d1d1d;
+  letter-spacing: 0.3px;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+
+  &:disabled {
+    background-color: #f7f7f7;
+    border: 2px solid #f7f7f7;
+    color: #bdbdbd;
+    cursor: default;
+  }
+}
+
+.button.active,
+.button:hover,
+.button:focus,
+.button:active {
+  color: #fff;
+  border: 2px solid #000;
+  outline: none;
+  background-color: #000;
+}
+
+.button .copyFeedback {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #000;
+  color: #fff;
+  padding: 0.8rem 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.toastWithIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    margin-right: 4px;
+  }
+}
