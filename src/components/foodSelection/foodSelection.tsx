@@ -9,7 +9,7 @@ export const FoodSelection: FunctionComponent = () => {
   const [foodCategory, setFoodCategory] = useState<FoodCategory>('Banhmi')
 
   const selectFood = (
-    event: MouseEvent<HTMLAnchorElement, MouseEvent>,
+    event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
     foodCategory: FoodCategory
   ) => {
     event.preventDefault()
