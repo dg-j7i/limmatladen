@@ -136,18 +136,18 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
           <Button
             type="abort"
             className={styles.button}
-            onClick={handleClipboard}
-            disabled={mainIngredient ? false : true}
-          >
-            Copy to Clipboard
-          </Button>
-          <Button
-            type="secondary-light"
-            className={styles.button}
             onClick={saveOrder}
             disabled={mainIngredient ? false : true}
           >
             Add To Order
+          </Button>
+          <Button
+            type="secondary-light"
+            className={styles.button}
+            onClick={handleClipboard}
+            disabled={mainIngredient ? false : true}
+          >
+            Copy to Clipboard
           </Button>
         </div>
       </div>
