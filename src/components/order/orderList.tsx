@@ -23,7 +23,7 @@ export const OrderList: FunctionComponent<IOrderListProps> = ({
         <Button
           type="error"
           auto
-          size="mini"
+          scale={1}
           onClick={() => {
             removeOrderItem(index.row)
           }}
