@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react'
 import styles from './foodSelection.module.scss'
 import { IngredientsSelection } from '../ingredients/ingredients'
-import { Col, Row, Text } from '@geist-ui/react'
+import { Grid, Spacer, Text } from '@geist-ui/react'
 
 export type FoodCategory = 'Bun' | 'Banhmi'
 
@@ -18,9 +18,9 @@ export const FoodSelection: FunctionComponent = () => {
 
   return (
     <>
-      <Col>{getCategoryDescription(foodCategory)}</Col>
-      <div className={styles.wrapper}>
-        <Row style={{ marginBottom: '72px' }} justify="space-between">
+      <Grid.Container>{getCategoryDescription(foodCategory)}</Grid.Container>
+      <Grid.Container gap={2} className={styles.wrapper}>
+        <Grid xs={24} sm={12}>
           <button
             className={`${styles.button} ${
               foodCategory === 'Banhmi' ? styles.selected : ''
@@ -31,12 +31,13 @@ export const FoodSelection: FunctionComponent = () => {
                 foodCategory === 'Bun'
                   ? 'linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), '
                   : ''
-              }url('https://www.limmatladen.ch/site/assets/files/1031/banhmi.300x0.png')`,
+              }url('https://limmatladen.ch/site/assets/files/1031/banhmi.300x0.png')`,
             }}
           >
             Banhmi
           </button>
-
+        </Grid>
+        <Grid xs={24} sm={12}>
           <button
             className={`${styles.button} ${
               foodCategory === 'Bun' ? styles.selected : ''
@@ -47,13 +48,14 @@ export const FoodSelection: FunctionComponent = () => {
                 foodCategory === 'Banhmi'
                   ? 'linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), '
                   : ''
-              }url('https://www.limmatladen.ch/site/assets/files/1029/bun.300x0.png')`,
+              }url('https://limmatladen.ch/site/assets/files/1029/bun.300x0.png')`,
             }}
           >
             Bun
           </button>
-        </Row>
-      </div>
+        </Grid>
+      </Grid.Container>
+      <Spacer h={4} />
 
       <IngredientsSelection foodCategory={foodCategory} />
     </>
@@ -64,24 +66,24 @@ const getCategoryDescription = (foodCategory: FoodCategory) => {
   switch (foodCategory) {
     case 'Bun': {
       return (
-        <Col style={{ marginBottom: '8px' }}>
+        <Grid style={{ marginBottom: '8px' }}>
           <Text h2>Reisnudeln</Text>
           <Text>
             garniert mit Pickles, Gurken, Minze, Koriander an einer leichten
             Sojasauce.
           </Text>
-        </Col>
+        </Grid>
       )
     }
     case 'Banhmi': {
       return (
-        <Col style={{ marginBottom: '8px' }}>
-          <Text h2>Baquette</Text>
+        <Grid style={{ marginBottom: '8px' }}>
+          <Text h2>Baguette</Text>
           <Text>
             garniert mit Pickles, Gurken und Koriander an einer Chili-Mayo
             Sauce.
           </Text>
-        </Col>
+        </Grid>
       )
     }
     default:

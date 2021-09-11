@@ -30,7 +30,7 @@ export const Order: FunctionComponent = () => {
         <div className={styles.input}>
           <div className="mt-1 relative rounded-md shadow-sm">
             <Input
-              size="large"
+              size={1}
               placeholder="Paste from Clipboard"
               width="100%"
               {...bindings}

@@ -2,7 +2,7 @@ import React from 'react'
 import { FoodSelection } from '../src/components/foodSelection/foodSelection'
 import styles from '../src/styles/Home.module.css'
 
-export default function Home() {
+const IndexPage = () => {
   return (
     <div className="bg-white dark:bg-black">
       <div className={styles.container}>
@@ -13,3 +13,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default IndexPage

@@ -1,7 +1,6 @@
 import {
   Checkbox,
   Radio,
-  Row,
   useClipboard,
   useToasts,
   Text,
@@ -26,7 +25,7 @@ const foodConfig = {
     'Pulled Pork Carnitas',
     [2, 4].includes(new Date().getDay()) ? 'Planted' : 'Tofu',
   ],
-  options: ['Ohne Koriander', 'Ohne Spicy'],
+  options: ['Koriander', 'Spicy'],
 }
 
 export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps> =
@@ -84,13 +83,13 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
       <div className={styles.container}>
         <div className="space-y-10">
           <Text h3>Hauptzutat</Text>
-          <Spacer x={8} />
+          <Spacer w={8} />
           <Card shadow style={{ marginBottom: '72px' }}>
             <Radio.Group value={mainIngredient} onChange={handleMainFood}>
               {foodConfig.main.map((mainItem: string) => {
                 return (
                   <>
-                    <Spacer y={0.5} />
+                    <Spacer h={0.5} />
                     <Radio key={mainItem} value={mainItem}>
                       {mainItem}
                       {mainItem === 'Tofu' && (
@@ -106,16 +105,12 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
             </Radio.Group>
           </Card>
           <Text h3>Zusätzliches</Text>
-          <Spacer y={1} />
+          <Spacer h={1} />
           <Card shadow style={{ marginBottom: '16px' }}>
-            <Checkbox.Group
-              size="medium"
-              value={options}
-              onChange={handleOptions}
-            >
+            <Checkbox.Group scale={1} value={options} onChange={handleOptions}>
               {foodConfig.options.map((option: string, index) => {
                 return (
-                  <Row
+                  <div
                     key={option}
                     style={{
                       marginBottom: `${
@@ -123,10 +118,10 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
                       }`,
                     }}
                   >
-                    <Checkbox initialChecked={false} value={option}>
+                    <Checkbox initialChecked={true} value={option}>
                       {option}
                     </Checkbox>
-                  </Row>
+                  </div>
                 )
               })}
             </Checkbox.Group>
