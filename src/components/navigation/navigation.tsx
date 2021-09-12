@@ -26,6 +26,15 @@ export const Navigation: FunctionComponent = () => {
           Order
         </a>
       </Link>
+      <Link href="/session">
+        <a
+          className={`${styles.navigationItem} ${
+            pathname === '/session' ? styles.active : ''
+          }`}
+        >
+          Session
+        </a>
+      </Link>
       <a
         href="https://limmatladen.ch/"
         target="_blank"

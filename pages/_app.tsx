@@ -6,6 +6,7 @@ import { geistThemes } from '../src/styles/theme'
 import { Navigation } from '../src/components/navigation/navigation'
 import React from 'react'
 import { OrderContextProvider } from '../src/components/order/orderContext'
+import { SessionContextProvider } from '../src/components/session/sessionContext'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -16,9 +17,11 @@ function App({ Component, pageProps }: AppProps) {
       <GeistProvider themes={geistThemes} themeType="Custom">
         <CssBaseline />
         <Navigation />
-        <OrderContextProvider>
-          <Component {...pageProps} />
-        </OrderContextProvider>
+        <SessionContextProvider>
+          <OrderContextProvider>
+            <Component {...pageProps} />
+          </OrderContextProvider>
+        </SessionContextProvider>
       </GeistProvider>
     </>
   )
