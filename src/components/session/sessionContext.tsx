@@ -1,4 +1,5 @@
-import { createContext, FunctionComponent, useContext, useState } from 'react'
+import { createContext, FunctionComponent, useContext } from 'react'
+import { useSessionStorageState } from '../../utils/useSessionStorageState'
 import { FoodCategory } from '../foodSelection/foodSelection'
 import { ISession } from './types'
 
@@ -17,7 +18,10 @@ const SessionContext = createContext<ISessionContext | undefined>(undefined)
 SessionContext.displayName = 'SessionContext'
 
 export const SessionContextProvider: FunctionComponent = ({ children }) => {
-  const [currentSession, setCurrentSession] = useState(null)
+  const [currentSession, setCurrentSession] = useSessionStorageState<ISession>(
+    'current_session',
+    null
+  )
 
   const createNewSession = async (name: string, owner: string) => {
     try {
