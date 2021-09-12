@@ -7,6 +7,7 @@ import {
   Card,
   Button,
   Spacer,
+  Grid,
 } from '@geist-ui/react'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { FoodCategory } from '../foodSelection/foodSelection'
@@ -127,24 +128,30 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
             </Checkbox.Group>
           </Card>
         </div>
-        <div className={styles.buttonWrapper}>
-          <Button
-            type="abort"
-            className={styles.button}
-            onClick={saveOrder}
-            disabled={mainIngredient ? false : true}
-          >
-            Add To Order
-          </Button>
-          <Button
-            type="secondary-light"
-            className={styles.button}
-            onClick={handleClipboard}
-            disabled={mainIngredient ? false : true}
-          >
-            Copy to Clipboard
-          </Button>
-        </div>
+        <Grid.Container justify="space-between">
+          <Grid xs={24} sm={10}>
+            <Button
+              width="100%"
+              type="abort"
+              className={styles.button}
+              onClick={saveOrder}
+              disabled={mainIngredient ? false : true}
+            >
+              Add To Order
+            </Button>
+          </Grid>
+          <Grid xs={24} sm={10}>
+            <Button
+              width="100%"
+              type="secondary-light"
+              className={styles.button}
+              onClick={handleClipboard}
+              disabled={mainIngredient ? false : true}
+            >
+              Copy to Clipboard
+            </Button>
+          </Grid>
+        </Grid.Container>
       </div>
     )
   }

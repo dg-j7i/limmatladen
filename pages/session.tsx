@@ -1,11 +1,11 @@
 import {
   Button,
-  Display,
   Grid,
   Card,
   Spacer,
   Page,
   Description,
+  Text,
 } from '@geist-ui/react'
 import React from 'react'
 import { SessionConnector } from '../src/components/session/sessionConnector'
@@ -17,8 +17,9 @@ const SessionPage = () => {
   return (
     <Page>
       <Page.Content>
-        <Display>
-          <h1>Start Collecting Orders</h1>
+        <Grid.Container direction="column" justify="center" alignItems="center">
+          <Spacer h={3} />
+          <Text h1>Start Collecting Orders</Text>
           <Spacer h={1} />
           <Grid.Container gap={2} justify="center">
             <Grid>
@@ -30,7 +31,8 @@ const SessionPage = () => {
               <SessionConnector buttonText={'Join Existing'} />
             </Grid>
           </Grid.Container>
-        </Display>
+          <Spacer h={2} />
+        </Grid.Container>
         {currentSession && (
           <Grid.Container justify="center" alignItems="center">
             <Grid>

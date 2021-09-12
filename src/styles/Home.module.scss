@@ -1,11 +1,11 @@
 .container {
-  min-height: 100vh;
+  min-height: 90vh;
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: auto;
 }
 
 .main {
@@ -17,6 +17,10 @@
   align-items: center;
   max-width: 600px;
   width: 100%;
+
+  @media (max-width: 600px) {
+    padding: 1rem 0;
+  }
 }
 
 .footer {
