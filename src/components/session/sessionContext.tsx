@@ -12,6 +12,11 @@ export interface IOrderItem {
 interface ISessionContext {
   currentSession: ISession | null
   createNewSession: (name: string, owner: string) => Promise<void>
+  joinExistingSession: (
+    id: string,
+    accessCode: string,
+    callback?: () => void
+  ) => Promise<void>
 }
 
 const SessionContext = createContext<ISessionContext | undefined>(undefined)
@@ -39,8 +44,33 @@ export const SessionContextProvider: FunctionComponent = ({ children }) => {
     }
   }
 
+  const joinExistingSession = async (
+    sessionId: string,
+    accessCode: string,
+    callback?: () => void
+  ) => {
+    try {
+      const existingSession = await fetch('/api/sessions/join', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ sessionId, accessCode }),
+      }).then((res) => res.json())
+
+      setCurrentSession(existingSession)
+      if (callback) {
+        callback()
+      }
+    } catch (err) {
+      console.error('Failed to create a new session:', err)
+    }
+  }
+
   return (
-    <SessionContext.Provider value={{ currentSession, createNewSession }}>
+    <SessionContext.Provider
+      value={{ currentSession, createNewSession, joinExistingSession }}
+    >
       {children}
     </SessionContext.Provider>
   )

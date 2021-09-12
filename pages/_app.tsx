@@ -16,9 +16,9 @@ function App({ Component, pageProps }: AppProps) {
       </Head>
       <GeistProvider themes={geistThemes} themeType="Custom">
         <CssBaseline />
-        <Navigation />
         <SessionContextProvider>
           <OrderContextProvider>
+            <Navigation />
             <Component {...pageProps} />
           </OrderContextProvider>
         </SessionContextProvider>
