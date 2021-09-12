@@ -8,7 +8,7 @@ import {
   Button,
   Spacer,
 } from '@geist-ui/react'
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { FoodCategory } from '../foodSelection/foodSelection'
 import { IOrderItem, useOrderContext } from '../order/orderContext'
 import styles from './ingredients.module.scss'
@@ -86,9 +86,9 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
           <Spacer w={8} />
           <Card shadow style={{ marginBottom: '72px' }}>
             <Radio.Group value={mainIngredient} onChange={handleMainFood}>
-              {foodConfig.main.map((mainItem: string) => {
+              {foodConfig.main.map((mainItem: string, index: number) => {
                 return (
-                  <>
+                  <Fragment key={`${mainItem}:${index}`}>
                     <Spacer h={0.5} />
                     <Radio key={mainItem} value={mainItem}>
                       {mainItem}
@@ -99,7 +99,7 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
                         </Radio.Description>
                       )}
                     </Radio>
-                  </>
+                  </Fragment>
                 )
               })}
             </Radio.Group>
