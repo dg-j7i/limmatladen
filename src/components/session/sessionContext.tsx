@@ -1,4 +1,5 @@
 import { createContext, FunctionComponent, useContext } from 'react'
+import { getRandomName } from '../../utils/getRandomName'
 import { useSessionStorageState } from '../../utils/useSessionStorageState'
 import { FoodCategory } from '../foodSelection/foodSelection'
 import { ISession } from './types'
@@ -11,7 +12,7 @@ export interface IOrderItem {
 
 interface ISessionContext {
   currentSession: ISession | null
-  createNewSession: (name: string, owner: string) => Promise<void>
+  createNewSession: (owner: string, name?: string) => Promise<void>
   joinExistingSession: (
     id: string,
     accessCode: string,
@@ -28,14 +29,15 @@ export const SessionContextProvider: FunctionComponent = ({ children }) => {
     null
   )
 
-  const createNewSession = async (name: string, owner: string) => {
+  const createNewSession = async (owner: string, name?: string) => {
+    const sessionName = name || getRandomName()
     try {
       const newSession = await fetch('/api/sessions/create', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
         },
-        body: JSON.stringify({ name, owner }),
+        body: JSON.stringify({ name: sessionName, owner }),
       }).then((res) => res.json())
 
       setCurrentSession(newSession)
