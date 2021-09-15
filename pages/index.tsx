@@ -68,7 +68,7 @@ const IndexPage: NextPage<IIndexPageProps> = ({ sharedSession }) => {
 IndexPage.getInitialProps = async ({ query }) => {
   const { id, access } = query
 
-  if (id && access) {
+  if (typeof id === 'string' && typeof access === 'string') {
     return {
       sharedSession: {
         id,
