@@ -1,20 +1,12 @@
 import React, { FunctionComponent, useEffect } from 'react'
-import { OrderList } from './orderList'
 import styles from './order.module.scss'
-import { getEmailTemplate } from './emailTemplate'
-import { Button, useInput } from '@geist-ui/react'
+import { useInput } from '@geist-ui/react'
 import { useOrderContext } from './orderContext'
 import { DominantInput } from '../input/dominantInput'
 
 export const Order: FunctionComponent = () => {
   const { state, reset, bindings } = useInput('')
   const { order, setOrder } = useOrderContext()
-
-  const removeOrderItem = (itemIndex: number) => {
-    const newOrder = [...order]
-    newOrder.splice(itemIndex, 1)
-    setOrder(newOrder)
-  }
 
   useEffect(() => {
     if (state) {
@@ -34,25 +26,6 @@ export const Order: FunctionComponent = () => {
           width="100%"
           {...bindings}
         />
-        {order.length ? (
-          <>
-            <OrderList order={order} removeOrderItem={removeOrderItem} />
-            <div className={styles.buttonWrapper}>
-              <Button type="abort" onClick={() => setOrder([])}>
-                Reset
-              </Button>
-              <a
-                href={`https://outlook.office.com/?path=/mail/action/compose&to=banhmi@limmatladen.ch?subject=Bestellung%20heute%20um%2012:00%20Uhr&body=${encodeURI(
-                  getEmailTemplate(order)
-                )}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Button type="secondary-light">Create Email</Button>
-              </a>
-            </div>
-          </>
-        ) : null}
       </div>
     </section>
   )

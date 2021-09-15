@@ -1,7 +1,6 @@
 import {
   Checkbox,
   Radio,
-  useClipboard,
   useToasts,
   Text,
   Card,
@@ -37,7 +36,6 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
     const [options, setOptions] = useState<string[]>(foodConfig.options)
     const { addOrderItem } = useOrderContext()
     const [, setToast] = useToasts()
-    const { copy } = useClipboard()
     const { createNewOrder } = useOrder()
 
     const saveOrder = () => {
@@ -87,17 +85,6 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
 
     const handleOptions = (value: string[]) => {
       setOptions(value)
-    }
-
-    const handleClipboard = () => {
-      copy(
-        JSON.stringify({
-          food: foodCategory,
-          main: mainIngredient,
-          options,
-        })
-      )
-      setToast({ text: 'Order copied.' })
     }
 
     useEffect(() => {
@@ -154,27 +141,16 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
             </Checkbox.Group>
           </Card>
         </div>
-        <Grid.Container justify="space-between">
-          <Grid xs={24} sm={10}>
-            <Button
-              width="100%"
-              type="abort"
-              className={styles.button}
-              onClick={saveOrder}
-              disabled={mainIngredient ? false : true}
-            >
-              Add To Order
-            </Button>
-          </Grid>
+        <Grid.Container justify="flex-end">
           <Grid xs={24} sm={10}>
             <Button
               width="100%"
               type="secondary-light"
               className={styles.button}
-              onClick={handleClipboard}
+              onClick={saveOrder}
               disabled={mainIngredient ? false : true}
             >
-              Copy to Clipboard
+              Add To Order
             </Button>
           </Grid>
         </Grid.Container>

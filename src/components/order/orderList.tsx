@@ -1,46 +1,43 @@
-import { Button, Table, Tag } from '@geist-ui/react'
+import { Card, Divider, Spacer, Tag, Text } from '@geist-ui/react'
 import React, { FunctionComponent } from 'react'
-import styles from './order.module.scss'
-import { IOrderItem } from './orderContext'
+import { IOrder } from './types'
 
 interface IOrderListProps {
-  order: IOrderItem[]
+  orders: IOrder[]
   removeOrderItem: (index: number) => void
 }
 
-export const OrderList: FunctionComponent<IOrderListProps> = ({
-  order,
-  removeOrderItem,
-}) => {
-  const data = order.map((order) => {
-    const options = order.options.map((option: string) => (
-      <Tag className={styles.option} key={option} type="secondary">
-        {option}
-      </Tag>
-    ))
-    const operation = (index: { row: number; col: number }) => {
-      return (
-        <Button
-          type="error"
-          auto
-          scale={1}
-          onClick={() => {
-            removeOrderItem(index.row)
-          }}
-        >
-          Remove
-        </Button>
-      )
-    }
-    return { ...order, options, operation }
-  })
-
+export const OrderList: FunctionComponent<IOrderListProps> = ({ orders }) => {
   return (
-    <Table data={data}>
-      <Table.Column prop="food" label="What" />
-      <Table.Column prop="main" label="Main" />
-      <Table.Column prop="options" label="Options" width={150} />
-      <Table.Column prop="operation" width={150} />
-    </Table>
+    <>
+      {orders.map((order) => {
+        const items = order.items.map((item) => {
+          const options = item.options.map((option: string) => (
+            <Tag style={{ marginRight: '4px' }} key={option} type="secondary">
+              {option}
+            </Tag>
+          ))
+
+          return (
+            <>
+              <h4 style={{ marginBottom: 0 }}>{item.name}</h4>
+              <h5>{item.ingredients[0]}</h5>
+              {options}
+            </>
+          )
+        })
+
+        return (
+          <>
+            <Card key={order._id}>
+              <Text type="secondary">{order.owner}</Text>
+              <Divider />
+              {items}
+            </Card>
+            <Spacer h={1} />
+          </>
+        )
+      })}
+    </>
   )
 }

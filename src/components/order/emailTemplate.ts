@@ -1,30 +1,35 @@
-import { IOrderItem } from './orderContext'
+import { IOrder } from './types'
 
-export const getEmailTemplate = (order: IOrderItem[]): string => {
+export const getEmailTemplate = (orders: IOrder[]): string => {
   const banhmis: string[] = []
   const buns: string[] = []
 
   // use findAll()
-
-  order.map((item) => {
-    if (!item) {
-      return
-    }
-    switch (item.food) {
-      case 'Banhmi': {
-        const description = `1x Banhmi ${item.main}${getOptions(item.options)}`
-        banhmis.push(description)
-        break
+  orders.map((order) =>
+    order.items.map((item) => {
+      if (!item) {
+        return
       }
-      case 'Bun': {
-        const description = `1x Bun ${item.main}${getOptions(item.options)}`
-        buns.push(description)
-        break
+      switch (item.name) {
+        case 'Banhmi': {
+          const description = `1x Banhmi ${item.ingredients[0]}${getOptions(
+            item.options
+          )}`
+          banhmis.push(description)
+          break
+        }
+        case 'Bun': {
+          const description = `1x Bun ${item.ingredients[0]}${getOptions(
+            item.options
+          )}`
+          buns.push(description)
+          break
+        }
+        default:
+          break
       }
-      default:
-        break
-    }
-  })
+    })
+  )
 
   const template = `
 Hello hello🙂
