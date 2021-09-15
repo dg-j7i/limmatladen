@@ -16,7 +16,7 @@ import { OrderList } from '../order/orderList'
 import { useSessionContext } from './sessionContext'
 
 export const SessionManagement: FunctionComponent = () => {
-  const { currentSession, getSession } = useSessionContext()
+  const { currentSession, getSession, createNewSession } = useSessionContext()
   const [isDrawerVisible, setIsDrawerVisible] = useState(false)
   const [, setToast] = useToasts()
   const { copy } = useClipboard()
@@ -82,6 +82,14 @@ export const SessionManagement: FunctionComponent = () => {
                 >
                   Details
                 </Button>
+                <Button
+                  auto
+                  icon={<Plus />}
+                  onClick={() => createNewSession('System')}
+                  style={{ marginRight: '8px' }}
+                >
+                  New
+                </Button>
                 {sessionId && sessionAccess && (
                   <Button
                     auto
@@ -92,6 +100,7 @@ export const SessionManagement: FunctionComponent = () => {
                     Share
                   </Button>
                 )}
+
                 <Button
                   auto
                   icon={<RefreshCw />}

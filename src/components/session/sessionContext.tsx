@@ -65,7 +65,11 @@ export const SessionContextProvider: FunctionComponent = ({ children }) => {
         }
       ).then((res) => res.json())
 
-      setCurrentSession({ ...currentSession, ...getSession })
+      setCurrentSession({
+        ...currentSession,
+        ...getSession,
+        access: accessCode,
+      })
       if (callback) {
         callback()
       }

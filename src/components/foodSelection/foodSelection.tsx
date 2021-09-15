@@ -5,7 +5,13 @@ import { Grid, Spacer, Text } from '@geist-ui/react'
 
 export type FoodCategory = 'Bun' | 'Banhmi'
 
-export const FoodSelection: FunctionComponent = () => {
+interface IFoodSelectionProps {
+  person: string
+}
+
+export const FoodSelection: FunctionComponent<IFoodSelectionProps> = ({
+  person,
+}) => {
   const [foodCategory, setFoodCategory] = useState<FoodCategory>('Banhmi')
 
   const selectFood = (
@@ -57,7 +63,7 @@ export const FoodSelection: FunctionComponent = () => {
       </Grid.Container>
       <Spacer h={4} />
 
-      <IngredientsSelection foodCategory={foodCategory} />
+      <IngredientsSelection foodCategory={foodCategory} person={person} />
     </>
   )
 }

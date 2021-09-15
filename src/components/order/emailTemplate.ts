@@ -15,14 +15,14 @@ export const getEmailTemplate = (orders: IOrder[]): string => {
           const description = `1x Banhmi ${item.ingredients[0]}${getOptions(
             item.options
           )}`
-          banhmis.push(description)
+          banhmis.push(`${description} \n`)
           break
         }
         case 'Bun': {
           const description = `1x Bun ${item.ingredients[0]}${getOptions(
             item.options
           )}`
-          buns.push(description)
+          buns.push(`${description} \n`)
           break
         }
         default:

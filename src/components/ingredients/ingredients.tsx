@@ -17,6 +17,7 @@ import { IOrderItem } from '../order/types'
 
 interface IIngredientsSelectionProps {
   foodCategory: FoodCategory
+  person: string
 }
 
 const foodConfig = {
@@ -30,7 +31,7 @@ const foodConfig = {
 }
 
 export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps> =
-  ({ foodCategory }) => {
+  ({ foodCategory, person }) => {
     const [selection, setSelection] = useState<IOrderItem | null>(null)
     const [mainIngredient, setMainIngredient] = useState('')
     const [options, setOptions] = useState<string[]>(foodConfig.options)
@@ -57,8 +58,8 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
       if (selection) {
         createNewOrder(
           {
-            owner: 'Schöl',
-            access: 'EF08',
+            owner: person,
+            access: 'XXXX',
             items: [
               {
                 name: foodCategory,
