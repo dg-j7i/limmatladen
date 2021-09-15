@@ -10,9 +10,10 @@ import {
 import React from 'react'
 import { SessionConnector } from '../src/components/session/sessionConnector'
 import { useSessionContext } from '../src/components/session/sessionContext'
+import { RefreshCw } from '@geist-ui/react-icons'
 
 const SessionPage = () => {
-  const { currentSession, createNewSession } = useSessionContext()
+  const { currentSession, createNewSession, getSession } = useSessionContext()
 
   return (
     <Page>
@@ -44,6 +45,20 @@ const SessionPage = () => {
                 />
                 <pre>{JSON.stringify(currentSession, null, 2)}</pre>
               </Card>
+              {currentSession?._id && (
+                <>
+                  <Spacer h={1} />
+                  <Grid.Container justify="flex-end">
+                    <Button
+                      auto
+                      iconRight={<RefreshCw />}
+                      onClick={() =>
+                        getSession(currentSession?._id, currentSession?.access)
+                      }
+                    />
+                  </Grid.Container>
+                </>
+              )}
             </Grid>
           </Grid.Container>
         )}

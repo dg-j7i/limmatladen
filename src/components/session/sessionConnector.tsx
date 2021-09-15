@@ -14,7 +14,7 @@ export const SessionConnector: FunctionComponent<ISessionConnector> = ({
   accessCode,
   buttonText,
 }) => {
-  const { joinExistingSession } = useSessionContext()
+  const { getSession } = useSessionContext()
   const { state: id, bindings: sessionIdBindings } = useInput(sessionId || '')
   const { state: code, bindings: accessBindings } = useInput(accessCode || '')
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -46,7 +46,7 @@ export const SessionConnector: FunctionComponent<ISessionConnector> = ({
         </Modal.Action>
         <Modal.Action
           onClick={() => {
-            joinExistingSession(id, code, () => setIsModalVisible(false))
+            getSession(id, code, () => setIsModalVisible(false))
           }}
         >
           Submit

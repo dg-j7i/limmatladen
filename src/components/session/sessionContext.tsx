@@ -16,7 +16,7 @@ export interface ISession {
 interface ISessionContext {
   currentSession: ISession | null
   createNewSession: (owner: string, name?: string) => Promise<void>
-  joinExistingSession: (
+  getSession: (
     id: string,
     accessCode: string,
     callback?: () => void
@@ -49,32 +49,34 @@ export const SessionContextProvider: FunctionComponent = ({ children }) => {
     }
   }
 
-  const joinExistingSession = async (
+  const getSession = async (
     sessionId: string,
     accessCode: string,
     callback?: () => void
   ) => {
     try {
-      const existingSession = await fetch('/api/sessions/join', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({ sessionId, accessCode }),
-      }).then((res) => res.json())
+      const getSession = await fetch(
+        `/api/sessions/${sessionId}?access=${accessCode}`,
+        {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+          },
+        }
+      ).then((res) => res.json())
 
-      setCurrentSession(existingSession)
+      setCurrentSession({ ...currentSession, ...getSession })
       if (callback) {
         callback()
       }
     } catch (err) {
-      console.error('Failed to create a new session:', err)
+      console.error('Failed to load new session:', err)
     }
   }
 
   return (
     <SessionContext.Provider
-      value={{ currentSession, createNewSession, joinExistingSession }}
+      value={{ currentSession, createNewSession, getSession }}
     >
       {children}
     </SessionContext.Provider>
