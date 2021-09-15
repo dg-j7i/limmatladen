@@ -1,13 +1,16 @@
 import { createContext, FunctionComponent, useContext } from 'react'
 import { getRandomName } from '../../utils/getRandomName'
 import { useSessionStorageState } from '../../utils/useSessionStorageState'
-import { FoodCategory } from '../foodSelection/foodSelection'
-import { ISession } from './types'
+import { IOrder } from '../order/types'
 
-export interface IOrderItem {
-  food: FoodCategory
-  main: string
-  options: string[]
+export interface ISession {
+  _id: string
+  name: string
+  owner: string
+  orders: IOrder[]
+  isActive: boolean
+  verification: string
+  access: string
 }
 
 interface ISessionContext {

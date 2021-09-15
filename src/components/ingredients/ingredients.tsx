@@ -13,7 +13,8 @@ import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { FoodCategory } from '../foodSelection/foodSelection'
 import { IOrderItem, useOrderContext } from '../order/orderContext'
 import styles from './ingredients.module.scss'
-import { CheckInCircle } from '@geist-ui/react-icons'
+import { CheckInCircle, AlertCircleFill } from '@geist-ui/react-icons'
+import { useOrder } from '../order/useOrder'
 
 interface IIngredientsSelectionProps {
   foodCategory: FoodCategory
@@ -37,6 +38,7 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
     const { addOrderItem } = useOrderContext()
     const [, setToast] = useToasts()
     const { copy } = useClipboard()
+    const { createNewOrder } = useOrder()
 
     const saveOrder = () => {
       setSelection({
@@ -44,15 +46,39 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
         main: mainIngredient,
         options,
       })
-      setToast({
-        text: (
-          <Text className={styles.toastWithIcon}>
-            <CheckInCircle color="green" />
-            {'  '}
-            Added to order
-          </Text>
-        ),
-      })
+      createNewOrder(
+        {
+          owner: 'Schöl',
+          access: 'EF08',
+          items: [
+            {
+              name: foodCategory,
+              ingredients: [mainIngredient],
+              options,
+            },
+          ],
+        },
+        () =>
+          setToast({
+            text: (
+              <Text className={styles.toastWithIcon}>
+                <CheckInCircle color="green" />
+                {'  '}
+                Added to order
+              </Text>
+            ),
+          }),
+        () =>
+          setToast({
+            text: (
+              <Text className={styles.toastWithIcon}>
+                <AlertCircleFill color="red" />
+                {'  '}
+                Something went wrong - try harder.
+              </Text>
+            ),
+          })
+      )
     }
 
     const handleMainFood = (value: string | number) => {

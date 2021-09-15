@@ -14,11 +14,11 @@ export const SessionConnector: FunctionComponent<ISessionConnector> = ({
   accessCode,
   buttonText,
 }) => {
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const modalHandler = () => setIsModalVisible(true)
+  const { joinExistingSession } = useSessionContext()
   const { state: id, bindings: sessionIdBindings } = useInput(sessionId || '')
   const { state: code, bindings: accessBindings } = useInput(accessCode || '')
-  const { joinExistingSession } = useSessionContext()
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const modalHandler = () => setIsModalVisible(true)
 
   return (
     <div>
