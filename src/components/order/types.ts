@@ -5,17 +5,11 @@ export interface IOrder {
   session_id: string
   owner: string
   access: string
-  items: [
-    {
-      name: string
-      ingredients: string[]
-      options: string[]
-    }
-  ]
+  items: IOrderItem[]
 }
 
 export interface IOrderItem {
-  food: FoodCategory
-  main: string
+  name: FoodCategory
+  ingredients: string[]
   options: string[]
 }

@@ -14,7 +14,7 @@ export const Navigation: FunctionComponent = () => {
             pathname === '/' ? styles.active : ''
           }`}
         >
-          Food
+          Session
         </a>
       </Link>
       <Link href="/order">
@@ -24,15 +24,6 @@ export const Navigation: FunctionComponent = () => {
           }`}
         >
           Order
-        </a>
-      </Link>
-      <Link href="/session">
-        <a
-          className={`${styles.navigationItem} ${
-            pathname === '/session' ? styles.active : ''
-          }`}
-        >
-          Session
         </a>
       </Link>
       <a

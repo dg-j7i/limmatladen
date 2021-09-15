@@ -10,10 +10,10 @@ import {
 } from '@geist-ui/react'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { FoodCategory } from '../foodSelection/foodSelection'
-import { IOrderItem, useOrderContext } from '../order/orderContext'
 import styles from './ingredients.module.scss'
 import { CheckInCircle, AlertCircleFill } from '@geist-ui/react-icons'
 import { useOrder } from '../order/useOrder'
+import { IOrderItem } from '../order/types'
 
 interface IIngredientsSelectionProps {
   foodCategory: FoodCategory
@@ -34,49 +34,15 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
     const [selection, setSelection] = useState<IOrderItem | null>(null)
     const [mainIngredient, setMainIngredient] = useState('')
     const [options, setOptions] = useState<string[]>(foodConfig.options)
-    const { addOrderItem } = useOrderContext()
     const [, setToast] = useToasts()
     const { createNewOrder } = useOrder()
 
     const saveOrder = () => {
       setSelection({
-        food: foodCategory,
-        main: mainIngredient,
+        name: foodCategory,
+        ingredients: [mainIngredient],
         options,
       })
-      createNewOrder(
-        {
-          owner: 'Schöl',
-          access: 'EF08',
-          items: [
-            {
-              name: foodCategory,
-              ingredients: [mainIngredient],
-              options,
-            },
-          ],
-        },
-        () =>
-          setToast({
-            text: (
-              <Text className={styles.toastWithIcon}>
-                <CheckInCircle color="green" />
-                {'  '}
-                Added to order
-              </Text>
-            ),
-          }),
-        () =>
-          setToast({
-            text: (
-              <Text className={styles.toastWithIcon}>
-                <AlertCircleFill color="red" />
-                {'  '}
-                Something went wrong - try harder.
-              </Text>
-            ),
-          })
-      )
     }
 
     const handleMainFood = (value: string | number) => {
@@ -89,7 +55,39 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
 
     useEffect(() => {
       if (selection) {
-        addOrderItem(selection)
+        createNewOrder(
+          {
+            owner: 'Schöl',
+            access: 'EF08',
+            items: [
+              {
+                name: foodCategory,
+                ingredients: [mainIngredient],
+                options,
+              },
+            ],
+          },
+          () =>
+            setToast({
+              text: (
+                <Text className={styles.toastWithIcon}>
+                  <CheckInCircle color="green" />
+                  {'  '}
+                  Added to order
+                </Text>
+              ),
+            }),
+          () =>
+            setToast({
+              text: (
+                <Text className={styles.toastWithIcon}>
+                  <AlertCircleFill color="red" />
+                  {'  '}
+                  Something went wrong - try harder.
+                </Text>
+              ),
+            })
+        )
       }
     }, [selection])
 
