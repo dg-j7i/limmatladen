@@ -4,11 +4,12 @@ import {
   Description,
   Drawer,
   Grid,
+  Link,
   Spacer,
   useClipboard,
   useToasts,
 } from '@geist-ui/react'
-import { Share2, RefreshCw } from '@geist-ui/react-icons'
+import { Share2, RefreshCw, Plus } from '@geist-ui/react-icons'
 import React, { FunctionComponent, useState } from 'react'
 import { getEmailTemplate } from '../order/emailTemplate'
 import { OrderList } from '../order/orderList'
@@ -50,6 +51,12 @@ export const SessionManagement: FunctionComponent = () => {
             orders={currentSession.orders}
             removeOrderItem={() => null}
           />
+          <Spacer h={1} />
+          <Grid.Container justify="flex-end">
+            <Link href="/order">
+              <Button icon={<Plus />}>Add new Order</Button>
+            </Link>
+          </Grid.Container>
         </Card>
         {sessionId && sessionAccess && (
           <>

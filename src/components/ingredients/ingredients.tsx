@@ -11,7 +11,7 @@ import {
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { FoodCategory } from '../foodSelection/foodSelection'
 import styles from './ingredients.module.scss'
-import { CheckInCircle, AlertCircleFill } from '@geist-ui/react-icons'
+import { CheckInCircle, AlertCircleFill, Plus } from '@geist-ui/react-icons'
 import { useOrder } from '../order/useOrder'
 import { IOrderItem } from '../order/types'
 
@@ -73,7 +73,7 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
                 <Text className={styles.toastWithIcon}>
                   <CheckInCircle color="green" />
                   {'  '}
-                  Added to order
+                  Added New Order
                 </Text>
               ),
             }),
@@ -144,11 +144,12 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
             <Button
               width="100%"
               type="secondary-light"
+              icon={<Plus />}
               className={styles.button}
               onClick={saveOrder}
               disabled={mainIngredient ? false : true}
             >
-              Add To Order
+              Add New Order
             </Button>
           </Grid>
         </Grid.Container>
