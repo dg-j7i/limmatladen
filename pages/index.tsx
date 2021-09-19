@@ -1,4 +1,4 @@
-import { Button, Grid, Spacer, Text, Page } from '@geist-ui/react'
+import { Button, Grid, Spacer, Text, Page, Spinner } from '@geist-ui/react'
 import React, { useEffect } from 'react'
 import { SessionConnector } from '../src/components/session/sessionConnector'
 import { useSessionContext } from '../src/components/session/sessionContext'
@@ -6,6 +6,7 @@ import { NextPage } from 'next'
 import { SessionManagement } from '../src/components/session/sessionManagement'
 import styles from '../src/styles/Home.module.scss'
 import { OrderList } from '../src/components/order/orderList'
+import { useRouter } from 'next/router'
 
 interface IIndexPageProps {
   sharedSession: ISharedSession | null
@@ -18,12 +19,28 @@ interface ISharedSession {
 
 const IndexPage: NextPage<IIndexPageProps> = ({ sharedSession }) => {
   const { currentSession, createNewSession, getSession } = useSessionContext()
+  const { push } = useRouter()
 
   useEffect(() => {
     if (sharedSession) {
-      getSession(sharedSession.id, sharedSession.access)
+      const joinSession = async () => {
+        await getSession(sharedSession.id, sharedSession.access)
+        push('/order')
+      }
+
+      joinSession()
     }
   }, [sharedSession])
+
+  if (sharedSession) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.main}>
+          <Spinner />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <>

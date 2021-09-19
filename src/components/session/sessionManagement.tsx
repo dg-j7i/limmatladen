@@ -1,13 +1,12 @@
-import { Button, Drawer, Grid, useClipboard, useToasts } from '@geist-ui/react'
+import { Button, Grid, useClipboard, useToasts } from '@geist-ui/react'
 import { Share2, RefreshCw, Plus } from '@geist-ui/react-icons'
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent } from 'react'
 import { getEmailTemplate } from '../order/emailTemplate'
 import { useSessionContext } from './sessionContext'
 import styles from './sessionManagement.module.scss'
 
 export const SessionManagement: FunctionComponent = () => {
   const { currentSession, getSession, createNewSession } = useSessionContext()
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false)
   const [, setToast] = useToasts()
   const { copy } = useClipboard()
 
@@ -44,16 +43,6 @@ export const SessionManagement: FunctionComponent = () => {
               </Grid>
               <Grid>
                 <Grid.Container gap={1}>
-                  <Grid xs={0} sm>
-                    <Button
-                      auto
-                      type="abort"
-                      onClick={() => setIsDrawerVisible(true)}
-                      style={{ marginRight: '8px' }}
-                    >
-                      Details
-                    </Button>
-                  </Grid>
                   <Grid xs={24} sm>
                     <Button
                       auto
@@ -91,17 +80,6 @@ export const SessionManagement: FunctionComponent = () => {
               </Grid>
             </>
           )}
-
-          <Drawer
-            visible={isDrawerVisible}
-            onClose={() => setIsDrawerVisible(false)}
-            placement={'bottom'}
-          >
-            <Drawer.Title>Session Data</Drawer.Title>
-            <Drawer.Content>
-              <pre>{JSON.stringify(currentSession, null, 2)}</pre>
-            </Drawer.Content>
-          </Drawer>
         </Grid.Container>
       </div>
     </div>
