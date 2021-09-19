@@ -13,7 +13,7 @@ import { FoodCategory } from '../foodSelection/foodSelection'
 import styles from './ingredients.module.scss'
 import { CheckInCircle, AlertCircleFill, Plus } from '@geist-ui/react-icons'
 import { useOrder } from '../order/useOrder'
-import { IOrderItem } from '../order/types'
+import { IOrderItem, IOrderItemOption } from '../order/types'
 
 interface IIngredientsSelectionProps {
   foodCategory: FoodCategory
@@ -27,14 +27,19 @@ const foodConfig = {
     'Pulled Pork Carnitas',
     [2, 4].includes(new Date().getDay()) ? 'Planted' : 'Tofu',
   ],
-  options: ['Koriander', 'Spicy'],
+  options: [
+    { name: 'Koriander', isExcluded: false },
+    { name: 'Spicy', isExcluded: false },
+  ],
 }
 
 export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps> =
   ({ foodCategory, person }) => {
     const [selection, setSelection] = useState<IOrderItem | null>(null)
     const [mainIngredient, setMainIngredient] = useState('')
-    const [options, setOptions] = useState<string[]>(foodConfig.options)
+    const [options, setOptions] = useState<IOrderItemOption[]>([
+      ...foodConfig.options,
+    ])
     const [, setToast] = useToasts()
     const { createNewOrder } = useOrder()
 
@@ -50,8 +55,14 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
       setMainIngredient(String(value))
     }
 
-    const handleOptions = (value: string[]) => {
-      setOptions(value)
+    const handleOptions = (includedOptions: string[]) => {
+      const options: IOrderItemOption[] = foodConfig.options.map((option) => {
+        return {
+          name: option.name,
+          isExcluded: !includedOptions.includes(option.name),
+        }
+      })
+      setOptions(options)
     }
 
     useEffect(() => {
@@ -120,19 +131,23 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
           <Text h3>Zusätzliches</Text>
           <Spacer h={1} />
           <Card shadow style={{ marginBottom: '16px' }}>
-            <Checkbox.Group scale={1} value={options} onChange={handleOptions}>
-              {foodConfig.options.map((option: string, index) => {
+            <Checkbox.Group
+              scale={1}
+              value={foodConfig.options.map((option) => option.name)}
+              onChange={handleOptions}
+            >
+              {foodConfig.options.map(({ name }, index) => {
                 return (
                   <div
-                    key={option}
+                    key={index}
                     style={{
                       marginBottom: `${
                         index + 1 === foodConfig.options.length ? 0 : '12px'
                       }`,
                     }}
                   >
-                    <Checkbox initialChecked={true} value={option}>
-                      {option}
+                    <Checkbox initialChecked={true} value={name}>
+                      {name}
                     </Checkbox>
                   </div>
                 )

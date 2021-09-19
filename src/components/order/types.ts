@@ -11,5 +11,10 @@ export interface IOrder {
 export interface IOrderItem {
   name: FoodCategory
   ingredients: string[]
-  options: string[]
+  options: IOrderItemOption[]
+}
+
+export interface IOrderItemOption {
+  name: string
+  isExcluded: boolean
 }

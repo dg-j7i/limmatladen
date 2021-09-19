@@ -36,7 +36,7 @@ const IndexPage: NextPage<IIndexPageProps> = ({ sharedSession }) => {
     if (currentSession) {
       getSession(currentSession._id, currentSession.access)
     }
-  }, [currentSession])
+  }, [])
 
   if (sharedSession) {
     return (

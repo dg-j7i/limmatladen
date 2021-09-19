@@ -10,7 +10,7 @@ import {
 import { Plus } from '@geist-ui/react-icons'
 import Link from 'next/link'
 import React, { FunctionComponent } from 'react'
-import { IOrder } from './types'
+import { IOrder, IOrderItemOption } from './types'
 
 interface IOrderListProps {
   orders: IOrder[]
@@ -23,11 +23,19 @@ export const OrderList: FunctionComponent<IOrderListProps> = ({ orders }) => {
       <Grid.Container gap={1}>
         {orders.map((order) => {
           const items = order.items.map((item) => {
-            const options = item.options.map((option: string) => (
-              <Tag style={{ marginRight: '4px' }} key={option} type="secondary">
-                {option}
-              </Tag>
-            ))
+            const options = item.options.map(
+              (option: IOrderItemOption, index: number) => {
+                return option.isExcluded ? (
+                  <Tag
+                    style={{ marginRight: '4px' }}
+                    key={index}
+                    type="secondary"
+                  >
+                    Ohne {option.name}
+                  </Tag>
+                ) : null
+              }
+            )
 
             return (
               <>

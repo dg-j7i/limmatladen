@@ -1,4 +1,4 @@
-import { IOrder } from './types'
+import { IOrder, IOrderItemOption } from './types'
 
 export const getEmailTemplate = (orders: IOrder[]): string => {
   const banhmis: string[] = []
@@ -47,16 +47,22 @@ Joel
   return template
 }
 
-const getOptions = (options: string[]) => {
-  if (!options.length) {
-    return ''
-  }
+const getOptions = (options: IOrderItemOption[]) => {
+  const isExcluded = (option: IOrderItemOption) =>
+    option.isExcluded ? option : false
 
-  if (options.length === 1) {
-    return ` (${options[0]})`
-  }
+  const filteredOptions = options.filter((option) => isExcluded(option))
 
-  return ` (${options.join(', ')})`
+  switch (filteredOptions.length) {
+    case 0:
+      return ''
+    case 1:
+      return ` (OHNE ${filteredOptions[0].name})`
+    default:
+      return ` (OHNE ${filteredOptions
+        .map((option) => option.name)
+        .join(', OHNE ')})`
+  }
 }
 
 const sumUpItems = (items: string[]) => {
