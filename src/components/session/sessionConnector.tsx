@@ -14,6 +14,7 @@ export const SessionConnector: FunctionComponent<ISessionConnector> = ({
   buttonText,
 }) => {
   const { getSession } = useSessionContext()
+  const [isCreatingNewSession, setIsCreatingNewSession] = useState(false)
   const { state: id, bindings: sessionIdBindings } = useInput(sessionId || '')
   const { state: code, bindings: accessBindings } = useInput(accessCode || '')
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -31,6 +32,7 @@ export const SessionConnector: FunctionComponent<ISessionConnector> = ({
             size={1}
             placeholder="Session Id"
             width="100%"
+            autoFocus
             {...sessionIdBindings}
           />
           <Spacer h={1} />
@@ -46,10 +48,15 @@ export const SessionConnector: FunctionComponent<ISessionConnector> = ({
         </Modal.Action>
         <Modal.Action
           onClick={() => {
-            getSession(id, code, () => setIsModalVisible(false))
+            setIsCreatingNewSession(true)
+            getSession(id, code, () => {
+              setIsCreatingNewSession(false)
+              setIsModalVisible(false)
+            })
           }}
           disabled={!id || !code}
           type="success-light"
+          loading={isCreatingNewSession}
         >
           Join
         </Modal.Action>
