@@ -74,7 +74,7 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
                 <Text className={styles.toastWithIcon}>
                   <CheckInCircle color="green" />
                   {'  '}
-                  Added New Order
+                  Added To Session
                 </Text>
               ),
             }),
@@ -150,7 +150,7 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
               onClick={saveOrder}
               disabled={mainIngredient ? false : true}
             >
-              Add New Order
+              Add To Session
             </Button>
           </Grid>
         </Grid.Container>

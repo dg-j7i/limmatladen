@@ -5,6 +5,7 @@ import { useSessionContext } from '../src/components/session/sessionContext'
 import { NextPage } from 'next'
 import { SessionManagement } from '../src/components/session/sessionManagement'
 import styles from '../src/styles/Home.module.scss'
+import { OrderList } from '../src/components/order/orderList'
 
 interface IIndexPageProps {
   sharedSession: ISharedSession | null
@@ -55,8 +56,14 @@ const IndexPage: NextPage<IIndexPageProps> = ({ sharedSession }) => {
           </div>
         </div>
       ) : (
-        <Page>
+        <Page dotBackdrop>
           <Page.Content>
+            <h1>Bestellungen</h1>
+            <Spacer h={1} />
+            <OrderList
+              orders={currentSession.orders}
+              removeOrderItem={() => null}
+            />
             <SessionManagement />
           </Page.Content>
         </Page>

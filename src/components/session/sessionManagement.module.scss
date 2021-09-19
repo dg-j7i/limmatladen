@@ -1,0 +1,15 @@
+.sessionManagement {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  padding: 16px;
+  background-color: white;
+  border-top: 1px solid rgb(0 0 0 / 4%);
+  width: 100%;
+  box-shadow: 0 -6px 10px -5px rgb(0 0 0 / 10%);
+}
+
+.sessionManagementInner {
+  max-width: 1600px;
+  margin: 0 auto;
+}

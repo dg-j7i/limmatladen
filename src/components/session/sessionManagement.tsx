@@ -1,19 +1,9 @@
-import {
-  Button,
-  Card,
-  Description,
-  Drawer,
-  Grid,
-  Link,
-  Spacer,
-  useClipboard,
-  useToasts,
-} from '@geist-ui/react'
+import { Button, Drawer, Grid, useClipboard, useToasts } from '@geist-ui/react'
 import { Share2, RefreshCw, Plus } from '@geist-ui/react-icons'
 import React, { FunctionComponent, useState } from 'react'
 import { getEmailTemplate } from '../order/emailTemplate'
-import { OrderList } from '../order/orderList'
 import { useSessionContext } from './sessionContext'
+import styles from './sessionManagement.module.scss'
 
 export const SessionManagement: FunctionComponent = () => {
   const { currentSession, getSession, createNewSession } = useSessionContext()
@@ -34,96 +24,86 @@ export const SessionManagement: FunctionComponent = () => {
   }
 
   return (
-    <Grid.Container justify="center" alignItems="center">
-      <Spacer h={4} />
-      <Grid xs={24} sm={12} direction="column">
-        <Card>
-          <Description
-            title={
-              currentSession.owner
-                ? `Session owner: ${currentSession.owner}`
-                : null
-            }
-            content={`Orders`}
-          />
-          <Spacer h={1} />
-          <OrderList
-            orders={currentSession.orders}
-            removeOrderItem={() => null}
-          />
-          <Spacer h={1} />
-          <Grid.Container justify="flex-end">
-            <Link href="/order">
-              <Button icon={<Plus />}>Add new Order</Button>
-            </Link>
-          </Grid.Container>
-        </Card>
-        {sessionId && sessionAccess && (
-          <>
-            <Spacer h={1} />
-            <Grid.Container justify="space-between">
-              <a
-                href={`https://outlook.office.com/?path=/mail/action/compose&to=banhmi@limmatladen.ch?subject=Bestellung%20heute%20um%2012:00%20Uhr&body=${encodeURI(
-                  getEmailTemplate(currentSession.orders)
-                )}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {currentSession.orders.length ? (
-                  <Button type="secondary-light">Create Email</Button>
-                ) : null}
-              </a>
-              <div>
-                <Button
-                  auto
-                  type="abort"
-                  onClick={() => setIsDrawerVisible(true)}
-                  style={{ marginRight: '8px' }}
+    <div className={styles.sessionManagement}>
+      <div className={styles.sessionManagementInner}>
+        <Grid.Container justify="space-between" alignItems="center" gap={1}>
+          {sessionId && sessionAccess && (
+            <>
+              <Grid xs={24} sm>
+                <a
+                  href={`https://outlook.office.com/?path=/mail/action/compose&to=banhmi@limmatladen.ch?subject=Bestellung%20heute%20um%2012:00%20Uhr&body=${encodeURI(
+                    getEmailTemplate(currentSession.orders)
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
                 >
-                  Details
-                </Button>
-                <Button
-                  auto
-                  icon={<Plus />}
-                  onClick={() => createNewSession('System')}
-                  style={{ marginRight: '8px' }}
-                >
-                  New
-                </Button>
-                {sessionId && sessionAccess && (
-                  <Button
-                    auto
-                    icon={<Share2 />}
-                    onClick={() => handleClipboard(sessionId, sessionAccess)}
-                    style={{ marginRight: '8px' }}
-                  >
-                    Share
-                  </Button>
-                )}
+                  {currentSession.orders.length ? (
+                    <Button type="secondary-light">Email erstellen</Button>
+                  ) : null}
+                </a>
+              </Grid>
+              <Grid>
+                <Grid.Container gap={1}>
+                  <Grid xs={0} sm>
+                    <Button
+                      auto
+                      type="abort"
+                      onClick={() => setIsDrawerVisible(true)}
+                      style={{ marginRight: '8px' }}
+                    >
+                      Details
+                    </Button>
+                  </Grid>
+                  <Grid xs={24} sm>
+                    <Button
+                      auto
+                      type="abort"
+                      icon={<Plus />}
+                      onClick={() => createNewSession('System')}
+                      style={{ marginRight: '8px' }}
+                    >
+                      New
+                    </Button>
+                    {sessionId && sessionAccess && (
+                      <Button
+                        auto
+                        icon={<Share2 />}
+                        onClick={() =>
+                          handleClipboard(sessionId, sessionAccess)
+                        }
+                        style={{ marginRight: '8px' }}
+                      >
+                        Share
+                      </Button>
+                    )}
+                  </Grid>
+                  <Grid xs={24} sm>
+                    <Button
+                      auto
+                      type="success-light"
+                      icon={<RefreshCw />}
+                      onClick={() => getSession(sessionId, sessionAccess)}
+                    >
+                      Refresh
+                    </Button>
+                  </Grid>
+                </Grid.Container>
+              </Grid>
+            </>
+          )}
 
-                <Button
-                  auto
-                  icon={<RefreshCw />}
-                  onClick={() => getSession(sessionId, sessionAccess)}
-                >
-                  Refresh
-                </Button>
-              </div>
-            </Grid.Container>
-          </>
-        )}
-
-        <Drawer
-          visible={isDrawerVisible}
-          onClose={() => setIsDrawerVisible(false)}
-          placement={'bottom'}
-        >
-          <Drawer.Title>Session Data</Drawer.Title>
-          <Drawer.Content>
-            <pre>{JSON.stringify(currentSession, null, 2)}</pre>
-          </Drawer.Content>
-        </Drawer>
-      </Grid>
-    </Grid.Container>
+          <Drawer
+            visible={isDrawerVisible}
+            onClose={() => setIsDrawerVisible(false)}
+            placement={'bottom'}
+          >
+            <Drawer.Title>Session Data</Drawer.Title>
+            <Drawer.Content>
+              <pre>{JSON.stringify(currentSession, null, 2)}</pre>
+            </Drawer.Content>
+          </Drawer>
+        </Grid.Container>
+      </div>
+    </div>
   )
 }

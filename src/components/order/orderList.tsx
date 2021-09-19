@@ -1,4 +1,14 @@
-import { Card, Divider, Spacer, Tag, Text } from '@geist-ui/react'
+import {
+  Badge,
+  Button,
+  Card,
+  Divider,
+  Grid,
+  Spacer,
+  Tag,
+} from '@geist-ui/react'
+import { Plus } from '@geist-ui/react-icons'
+import Link from 'next/link'
 import React, { FunctionComponent } from 'react'
 import { IOrder } from './types'
 
@@ -10,34 +20,44 @@ interface IOrderListProps {
 export const OrderList: FunctionComponent<IOrderListProps> = ({ orders }) => {
   return (
     <>
-      {orders.map((order) => {
-        const items = order.items.map((item) => {
-          const options = item.options.map((option: string) => (
-            <Tag style={{ marginRight: '4px' }} key={option} type="secondary">
-              {option}
-            </Tag>
-          ))
+      <Grid.Container gap={1}>
+        {orders.map((order) => {
+          const items = order.items.map((item) => {
+            const options = item.options.map((option: string) => (
+              <Tag style={{ marginRight: '4px' }} key={option} type="secondary">
+                {option}
+              </Tag>
+            ))
+
+            return (
+              <>
+                <h4 style={{ marginBottom: 0 }}>{item.name}</h4>
+                <h5>{item.ingredients[0]}</h5>
+                {options}
+              </>
+            )
+          })
 
           return (
-            <>
-              <h4 style={{ marginBottom: 0 }}>{item.name}</h4>
-              <h5>{item.ingredients[0]}</h5>
-              {options}
-            </>
+            <Grid xs={24} sm={12} md={8} lg={6} xl={4} key={order._id}>
+              <Card shadow width="100%">
+                <Badge>{order.owner}</Badge>
+                <Divider />
+                {items}
+              </Card>
+              <Spacer h={1} />
+            </Grid>
           )
-        })
-
-        return (
-          <>
-            <Card key={order._id}>
-              <Text type="secondary">{order.owner}</Text>
-              <Divider />
-              {items}
-            </Card>
-            <Spacer h={1} />
-          </>
-        )
-      })}
+        })}
+      </Grid.Container>
+      <Spacer h={3} />
+      <Grid.Container justify="flex-start">
+        <Link href="/order">
+          <Button type="secondary-light" icon={<Plus />}>
+            Neu hinzufügen
+          </Button>
+        </Link>
+      </Grid.Container>
     </>
   )
 }
