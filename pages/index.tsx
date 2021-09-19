@@ -32,6 +32,12 @@ const IndexPage: NextPage<IIndexPageProps> = ({ sharedSession }) => {
     }
   }, [sharedSession])
 
+  useEffect(() => {
+    if (currentSession) {
+      getSession(currentSession._id, currentSession.access)
+    }
+  }, [currentSession])
+
   if (sharedSession) {
     return (
       <div className={styles.container}>
