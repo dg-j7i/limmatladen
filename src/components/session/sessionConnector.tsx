@@ -1,4 +1,4 @@
-import { Button, Input, Modal, useInput } from '@geist-ui/react'
+import { Button, Input, Modal, Spacer, useInput } from '@geist-ui/react'
 import React, { FunctionComponent, useState } from 'react'
 import { useSessionContext } from './sessionContext'
 
@@ -33,6 +33,7 @@ export const SessionConnector: FunctionComponent<ISessionConnector> = ({
             width="100%"
             {...sessionIdBindings}
           />
+          <Spacer h={1} />
           <Input
             size={1}
             placeholder="Access Code"
@@ -47,8 +48,10 @@ export const SessionConnector: FunctionComponent<ISessionConnector> = ({
           onClick={() => {
             getSession(id, code, () => setIsModalVisible(false))
           }}
+          disabled={!id || !code}
+          type="success-light"
         >
-          Submit
+          Join
         </Modal.Action>
       </Modal>
     </div>

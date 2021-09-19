@@ -1,12 +1,12 @@
-import { Button, Grid, Spacer, Text, Page, Spinner } from '@geist-ui/react'
+import { Spacer, Page, Spinner } from '@geist-ui/react'
 import React, { useEffect } from 'react'
-import { SessionConnector } from '../src/components/session/sessionConnector'
 import { useSessionContext } from '../src/components/session/sessionContext'
 import { NextPage } from 'next'
 import { SessionManagement } from '../src/components/session/sessionManagement'
 import styles from '../src/styles/Home.module.scss'
 import { OrderList } from '../src/components/order/orderList'
 import { useRouter } from 'next/router'
+import { SessionTeaser } from '../src/components/session/sessionTeaser'
 
 interface IIndexPageProps {
   sharedSession: ISharedSession | null
@@ -18,7 +18,7 @@ interface ISharedSession {
 }
 
 const IndexPage: NextPage<IIndexPageProps> = ({ sharedSession }) => {
-  const { currentSession, createNewSession, getSession } = useSessionContext()
+  const { currentSession, getSession } = useSessionContext()
   const { push } = useRouter()
 
   useEffect(() => {
@@ -47,29 +47,7 @@ const IndexPage: NextPage<IIndexPageProps> = ({ sharedSession }) => {
       {!currentSession ? (
         <div className={styles.container}>
           <div className={styles.main}>
-            <Grid.Container
-              direction="column"
-              justify="center"
-              alignItems="center"
-            >
-              <Spacer h={3} />
-              <Text h1>Start a Session to Order</Text>
-              <Spacer h={1} />
-              <Grid.Container gap={2} justify="center">
-                <Grid>
-                  <Button
-                    type="secondary"
-                    onClick={() => createNewSession('John')}
-                  >
-                    New Session
-                  </Button>
-                </Grid>
-                <Grid>
-                  <SessionConnector buttonText={'Join Existing'} />
-                </Grid>
-              </Grid.Container>
-              <Spacer h={2} />
-            </Grid.Container>
+            <SessionTeaser />
           </div>
         </div>
       ) : (

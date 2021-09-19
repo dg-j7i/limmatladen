@@ -1,13 +1,13 @@
-import { Button, Grid, Spacer, Text, useInput } from '@geist-ui/react'
+import { useInput } from '@geist-ui/react'
 import styles from '../src/styles/Home.module.scss'
 import React, { useEffect, useState } from 'react'
 import { FoodSelection } from '../src/components/foodSelection/foodSelection'
-import { SessionConnector } from '../src/components/session/sessionConnector'
 import { useSessionContext } from '../src/components/session/sessionContext'
 import { NameInput } from '../src/components/order/nameInput'
+import { SessionTeaser } from '../src/components/session/sessionTeaser'
 
 const OrderPage = () => {
-  const { currentSession, createNewSession } = useSessionContext()
+  const { currentSession } = useSessionContext()
   const { state: person, bindings } = useInput('')
   const [hasPerson, setHasPerson] = useState(false)
 
@@ -31,29 +31,7 @@ const OrderPage = () => {
             {hasPerson && <FoodSelection person={person} />}
           </>
         ) : (
-          <Grid.Container
-            direction="column"
-            justify="center"
-            alignItems="center"
-          >
-            <Spacer h={3} />
-            <Text h1>Start a Session to Order</Text>
-            <Spacer h={1} />
-            <Grid.Container gap={2} justify="center">
-              <Grid>
-                <Button
-                  type="secondary"
-                  onClick={() => createNewSession('John')}
-                >
-                  New Session
-                </Button>
-              </Grid>
-              <Grid>
-                <SessionConnector buttonText={'Join Existing'} />
-              </Grid>
-            </Grid.Container>
-            <Spacer h={2} />
-          </Grid.Container>
+          <SessionTeaser />
         )}
       </div>
     </div>
