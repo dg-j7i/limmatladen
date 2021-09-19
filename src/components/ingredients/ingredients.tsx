@@ -114,7 +114,7 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
                 return (
                   <Fragment key={`${mainItem}:${index}`}>
                     <Spacer h={0.5} />
-                    <Radio key={mainItem} value={mainItem}>
+                    <Radio key={mainItem} value={mainItem} autoFocus>
                       {mainItem}
                       {mainItem === 'Tofu' && (
                         <Radio.Description>

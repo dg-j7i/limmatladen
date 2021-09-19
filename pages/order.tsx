@@ -1,4 +1,4 @@
-import { useInput } from '@geist-ui/react'
+import { Divider, useInput } from '@geist-ui/react'
 import styles from '../src/styles/Home.module.scss'
 import React, { useEffect, useState } from 'react'
 import { FoodSelection } from '../src/components/foodSelection/foodSelection'
@@ -27,8 +27,20 @@ const OrderPage = () => {
       <div className={styles.main}>
         {currentSession ? (
           <>
-            <NameInput {...bindings} label={'Dein Name'} />
-            {hasPerson && <FoodSelection person={person} />}
+            <NameInput
+              {...bindings}
+              label={hasPerson ? 'Diese Bestellung ist für' : ''}
+              style={{ textAlign: `${hasPerson ? 'center' : 'left'}` }}
+              placeholder={'Wie lautet dein Name?'}
+            />
+            {hasPerson && (
+              <>
+                <div style={{ width: '100%' }}>
+                  <Divider />
+                </div>
+                <FoodSelection person={person} />
+              </>
+            )}
           </>
         ) : (
           <SessionTeaser />
