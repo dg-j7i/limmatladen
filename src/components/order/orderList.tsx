@@ -23,25 +23,11 @@ export const OrderList: FunctionComponent<IOrderListProps> = ({ orders }) => {
       <Grid.Container gap={1}>
         {orders.map((order) => {
           const items = order.items.map((item) => {
-            const options = item.options.map(
-              (option: IOrderItemOption, index: number) => {
-                return option.isExcluded ? (
-                  <Tag
-                    style={{ marginRight: '4px' }}
-                    key={index}
-                    type="secondary"
-                  >
-                    Ohne {option.name}
-                  </Tag>
-                ) : null
-              }
-            )
-
             return (
               <>
                 <h4 style={{ marginBottom: 0 }}>{item.name}</h4>
                 <h5>{item.ingredients[0]}</h5>
-                {options}
+                {renderOptions(item.options)}
               </>
             )
           })
@@ -67,5 +53,23 @@ export const OrderList: FunctionComponent<IOrderListProps> = ({ orders }) => {
         </Link>
       </Grid.Container>
     </>
+  )
+}
+
+const renderOptions = (options: IOrderItemOption[]) => {
+  const optionTags = options.map((option: IOrderItemOption, index: number) => {
+    return option.isExcluded ? (
+      <Tag style={{ marginRight: '4px' }} key={index} type="secondary">
+        Ohne {option.name}
+      </Tag>
+    ) : null
+  })
+
+  return optionTags.filter((option) => option).length ? (
+    optionTags
+  ) : (
+    <Tag style={{ marginRight: '4px' }} type="secondary">
+      Mit alles
+    </Tag>
   )
 }
