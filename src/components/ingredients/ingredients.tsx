@@ -7,7 +7,6 @@ import {
   Button,
   Spacer,
   Grid,
-  Spinner,
 } from '@geist-ui/react'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { FoodCategory } from '../foodSelection/foodSelection'
@@ -98,10 +97,6 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
       }
     }, [selection])
 
-    if (isCreatingNewOrder) {
-      return <Spinner />
-    }
-
     return (
       <div className={styles.container}>
         <div className="space-y-10">
@@ -163,6 +158,7 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
               className={styles.button}
               onClick={saveOrder}
               disabled={mainIngredient ? false : true}
+              loading={isCreatingNewOrder}
             >
               Add To Session
             </Button>
