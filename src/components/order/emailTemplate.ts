@@ -12,14 +12,14 @@ export const getEmailTemplate = (orders: IOrder[]): string => {
       }
       switch (item.name) {
         case 'Banhmi': {
-          const description = `1x Banhmi ${item.ingredients[0]}${getOptions(
+          const description = `Banhmi ${item.ingredients[0]}${getOptions(
             item.options
           )}`
           banhmis.push(`${description} \n`)
           break
         }
         case 'Bun': {
-          const description = `1x Bun ${item.ingredients[0]}${getOptions(
+          const description = `Bun ${item.ingredients[0]}${getOptions(
             item.options
           )}`
           buns.push(`${description} \n`)
@@ -31,12 +31,14 @@ export const getEmailTemplate = (orders: IOrder[]): string => {
     })
   )
 
+  const total = banhmis.length + buns.length
   const template = `
 Hello hello🙂
 Ich will gerne eine Bestellung aufgeben, um diese heute um 12:00 abzuholen:
 
-${banhmis.map((banhmi) => banhmi)}
-${buns.map((bun) => bun)}
+${sumUpItems(banhmis).map((banhmi) => banhmi)}
+${sumUpItems(buns).map((bun) => bun)}
+Total: ${total}
 
 Bitte gebt mir kurz eine Bestätigung, ob die Bestellung für heute 12:00 Uhr möglich ist. 
 Freue mich, danke und bis später
@@ -55,4 +57,14 @@ const getOptions = (options: string[]) => {
   }
 
   return ` (${options.join(', ')})`
+}
+
+const sumUpItems = (items: string[]) => {
+  const countedItems: { [Key: string]: number } = {}
+
+  items.forEach((item) => {
+    countedItems[item] = (countedItems[item] || 0) + 1
+  })
+
+  return Object.keys(countedItems).map((key) => `${countedItems[key]}x ${key}`)
 }
