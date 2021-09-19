@@ -13,3 +13,13 @@
   max-width: 1600px;
   margin: 0 auto;
 }
+
+.toastWithIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    margin-right: 4px;
+  }
+}

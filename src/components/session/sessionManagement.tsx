@@ -1,5 +1,5 @@
-import { Button, Grid, useClipboard, useToasts } from '@geist-ui/react'
-import { Share2, RefreshCw, Plus } from '@geist-ui/react-icons'
+import { Button, Grid, useClipboard, useToasts, Text } from '@geist-ui/react'
+import { Share2, RefreshCw, Plus, CheckInCircle } from '@geist-ui/react-icons'
 import React, { FunctionComponent } from 'react'
 import { getEmailTemplate } from '../order/emailTemplate'
 import { useSessionContext } from './sessionContext'
@@ -19,7 +19,15 @@ export const SessionManagement: FunctionComponent = () => {
 
   const handleClipboard = (id: string, access: string) => {
     copy(`${window.location.href}?id=${id}&access=${access}`)
-    setToast({ text: 'Link copied' })
+    setToast({
+      text: (
+        <Text className={styles.toastWithIcon}>
+          <CheckInCircle color="green" />
+          {'  '}
+          Session link copied to clipboard.
+        </Text>
+      ),
+    })
   }
 
   return (

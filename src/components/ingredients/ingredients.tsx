@@ -7,13 +7,15 @@ import {
   Button,
   Spacer,
   Grid,
+  Spinner,
 } from '@geist-ui/react'
 import React, { Fragment, FunctionComponent, useEffect, useState } from 'react'
 import { FoodCategory } from '../foodSelection/foodSelection'
 import styles from './ingredients.module.scss'
-import { CheckInCircle, AlertCircleFill, Plus } from '@geist-ui/react-icons'
+import { AlertCircleFill, Plus } from '@geist-ui/react-icons'
 import { useOrder } from '../order/useOrder'
 import { IOrderItem, IOrderItemOption } from '../order/types'
+import { useRouter } from 'next/router'
 
 interface IIngredientsSelectionProps {
   foodCategory: FoodCategory
@@ -40,8 +42,10 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
     const [options, setOptions] = useState<IOrderItemOption[]>([
       ...foodConfig.options,
     ])
+    const [isCreatingNewOrder, setIsCreatingNewOrder] = useState(false)
     const [, setToast] = useToasts()
     const { createNewOrder } = useOrder()
+    const { push } = useRouter()
 
     const saveOrder = () => {
       setSelection({
@@ -67,6 +71,7 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
 
     useEffect(() => {
       if (selection) {
+        setIsCreatingNewOrder(true)
         createNewOrder(
           {
             owner: person,
@@ -78,16 +83,7 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
               },
             ],
           },
-          () =>
-            setToast({
-              text: (
-                <Text className={styles.toastWithIcon}>
-                  <CheckInCircle color="green" />
-                  {'  '}
-                  Added To Session
-                </Text>
-              ),
-            }),
+          () => push('/'),
           () =>
             setToast({
               text: (
@@ -101,6 +97,10 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
         )
       }
     }, [selection])
+
+    if (isCreatingNewOrder) {
+      return <Spinner />
+    }
 
     return (
       <div className={styles.container}>
