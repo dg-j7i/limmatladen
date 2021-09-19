@@ -70,7 +70,6 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
         createNewOrder(
           {
             owner: person,
-            access: 'XXXX',
             items: [
               {
                 name: foodCategory,
