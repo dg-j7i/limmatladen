@@ -1,6 +1,5 @@
 import { Button, Input, Modal, useInput } from '@geist-ui/react'
 import React, { FunctionComponent, useState } from 'react'
-import { DominantInput } from '../input/dominantInput'
 import { useSessionContext } from './sessionContext'
 
 interface ISessionConnector {
@@ -34,7 +33,7 @@ export const SessionConnector: FunctionComponent<ISessionConnector> = ({
             width="100%"
             {...sessionIdBindings}
           />
-          <DominantInput
+          <Input
             size={1}
             placeholder="Access Code"
             width="100%"
