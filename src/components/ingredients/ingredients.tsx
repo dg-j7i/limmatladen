@@ -26,7 +26,8 @@ const foodConfig = {
     'Rindfleisch mit Zitronengras',
     'Poulet',
     'Pulled Pork Carnitas',
-    [2, 4].includes(new Date().getDay()) ? 'Planted' : 'Tofu',
+    'Planted',
+    'Tofu',
   ],
   options: [
     { name: 'Koriander', isExcluded: false },
