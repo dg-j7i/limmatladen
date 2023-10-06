@@ -111,12 +111,6 @@ export const IngredientsSelection: FunctionComponent<IIngredientsSelectionProps>
                     <Spacer h={0.5} />
                     <Radio key={mainItem} value={mainItem} autoFocus>
                       {mainItem}
-                      {mainItem === 'Tofu' && (
-                        <Radio.Description>
-                          On weekdays starting with the letter &quot;D&quot; we
-                          offer planted chicken.
-                        </Radio.Description>
-                      )}
                     </Radio>
                   </Fragment>
                 )
