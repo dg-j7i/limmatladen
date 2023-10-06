@@ -37,7 +37,7 @@ export const FoodSelection: FunctionComponent<IFoodSelectionProps> = ({
                 foodCategory === 'Bun'
                   ? 'linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), '
                   : ''
-              }url('https://limmatladen.ch/site/assets/files/1031/banhmi.300x0.png')`,
+              }url('https://limmatladen.ch/site/assets/files/1031/mtd_3936.300x0.jpg')`,
             }}
           >
             Banhmi
@@ -54,7 +54,7 @@ export const FoodSelection: FunctionComponent<IFoodSelectionProps> = ({
                 foodCategory === 'Banhmi'
                   ? 'linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), '
                   : ''
-              }url('https://limmatladen.ch/site/assets/files/1029/bun.300x0.png')`,
+              }url('https://limmatladen.ch/site/assets/files/1029/mtd_3906.300x0.jpg')`,
             }}
           >
             Bun
